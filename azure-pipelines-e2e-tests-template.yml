@@ -58,10 +58,10 @@ stages:
               mvn -version
 
         - task: UseDotNet@2
-          displayName: 'Use .NET 6 sdk'
+          displayName: 'Use .NET sdk'
           inputs:
             packageType: sdk
-            version: 6.x
+            version: 8.x
             installationPath: $(Agent.ToolsDirectory)/dotnet
 
         - task: DownloadBuildArtifacts@0
@@ -71,7 +71,7 @@ stages:
             downloadPath: $(Build.ArtifactStagingDirectory)
 
         - pwsh: |
-            $framework = "net6.0"
+            $framework = "net8.0"
 
             if ($env:AGENT_OS -eq 'Windows_NT') {
               $runtimeIdentifier = "win-x64"
@@ -184,3 +184,4 @@ stages:
             HADOOP_HOME: $(Build.BinariesDirectory)$(PATH_SEPARATOR)hadoop
             SPARK_HOME: $(Build.BinariesDirectory)$(PATH_SEPARATOR)spark-${{ test.version }}-bin-hadoop2.7
             DOTNET_WORKER_DIR: $(CURRENT_DOTNET_WORKER_DIR)
+
